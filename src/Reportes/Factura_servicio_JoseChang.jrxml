@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3bd7fc2b-af6b-49bf-ba14-53ebd20bfb91">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="256"/>
+	<parameter name="id_fac" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT tf.fecha_factura,	    
+	tf.no_factura,
+	cli.txt_nombre,
+	cli.txt_nit,
+          cli.txt_telefono,
+ 	cli.txt_direccion,
+	tf.total_factura,
+	tf.total_letras,
+          ts.txt_desc_serv,
+	ts.sub_total,
+	day(tf.fecha_factura),
+	case 
+		when month(tf.fecha_factura) = 1 then "Enero"
+		when month(tf.fecha_factura) = 2 then "Febrero"
+		when month(tf.fecha_factura) = 3 then "Marzo"
+		when month(tf.fecha_factura) = 4 then "Abril"
+		when month(tf.fecha_factura) = 5 then "Mayo"
+		when month(tf.fecha_factura) = 6 then "Junio"
+		when month(tf.fecha_factura) = 7 then "Julio"
+		when month(tf.fecha_factura) = 8 then "Agosto"
+		when month(tf.fecha_factura) = 9 then "Septiempre"
+		when month(tf.fecha_factura) = 10 then "Octubre"
+		when month(tf.fecha_factura) = 11 then "Noviembre"
+		when month(tf.fecha_factura) = 12 then "Diciembre"
+	end as mes,
+	month(tf.fecha_factura),
+	year(tf.fecha_factura)
+	from tfacturacion tf
+	inner join tcliente cli on cli.id_cliente = tf.id_cliente
+    	inner join tservicio ts on ts.id_fac = tf.id_factura
+where tf.id_factura = $P{id_fac}]]>
+	</queryString>
+	<field name="fecha_factura" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="no_factura" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="txt_nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="txt_nit" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="txt_telefono" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="txt_direccion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total_factura" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total_letras" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="txt_desc_serv" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sub_total" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="day(tf.fecha_factura)" class="java.lang.Long"/>
+	<field name="mes" class="java.lang.String"/>
+	<field name="month(tf.fecha_factura)" class="java.lang.Long"/>
+	<field name="year(tf.fecha_factura)" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="86" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="90" splitType="Stretch">
+			<textField>
+				<reportElement x="160" y="44" width="363" height="13" uuid="cc19d398-aed1-48c4-94ce-d229d04c79c4"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{txt_direccion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="24" width="363" height="20" uuid="75cb5816-c772-403d-9b2e-800eb7fd4988"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{txt_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="301" y="11" width="100" height="13" uuid="a4ee38ab-a0cf-4463-8c5c-6af04bb89f31"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{mes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="423" y="11" width="100" height="13" uuid="2137576e-19f0-48a2-be00-028807941d38"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{year(tf.fecha_factura)}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="152" y="11" width="100" height="13" uuid="f19a67ff-7bc4-4d0b-9bee-8f08db28be6a"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{day(tf.fecha_factura)}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="57" width="100" height="12" uuid="35539901-4183-46b9-ad20-dfc4bf3bfdfd"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{txt_nit}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="162" y="0" width="170" height="17" uuid="9da6ce3c-2ff2-4d0c-b86c-cb47fc1ad78d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{txt_desc_serv}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="426" y="0" width="54" height="17" uuid="fd2aa1bf-8249-4fbd-b55f-5fd1fa8f807d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sub_total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="415" y="0" width="11" height="17" uuid="e5a4180f-d895-4c9a-9244-a72bac5d5c45"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Q.]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<summary>
+		<band height="325">
+			<textField pattern="#,##0.00">
+				<reportElement x="423" y="313" width="88" height="12" uuid="6774cc8e-8033-4f58-8c18-68d2b362e22b"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total_factura}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="117" y="313" width="274" height="12" uuid="d7cf127a-43fe-47a1-908f-29f7f5f8bf09"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total_letras}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

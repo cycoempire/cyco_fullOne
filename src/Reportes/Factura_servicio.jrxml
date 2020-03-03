@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="852" columnWidth="565" leftMargin="20" rightMargin="10" topMargin="20" bottomMargin="20" uuid="3bd7fc2b-af6b-49bf-ba14-53ebd20bfb91">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_doc" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT tf.fecha_doc,	    
+		tf.no_doc,
+        cli.txt_nombre,
+		cli.txt_nit,
+        cli.txt_telefono,
+        cli.txt_direccion,        
+        tf.total_factura,
+	case 
+	   when ts.cantidad = 0 then ""
+             when ts.cantidad <> 0 then ts.cantidad
+	end cantidad,	
+        	ts.precio,
+	ts.sub_total,
+	ts.txt_desc_serv,
+	tf.total_letras,
+	case 
+	  when day(tf.fecha_doc) = 1 then "01"
+	  when day(tf.fecha_doc) = 2 then "02"
+	  when day(tf.fecha_doc) = 3 then "03"
+	  when day(tf.fecha_doc) = 4 then "04"
+	  when day(tf.fecha_doc) = 5 then "05"
+	  when day(tf.fecha_doc) = 6 then "06"
+	  when day(tf.fecha_doc) = 7 then "07"
+	  when day(tf.fecha_doc) = 8 then "08"
+	  when day(tf.fecha_doc) = 9 then "09"
+	  else day(tf.fecha_doc)
+	  end as dia,
+	case 
+	   when month(tf.fecha_doc) = 1 then "01"
+	   when month(tf.fecha_doc) = 2 then "02"
+	   when month(tf.fecha_doc) = 3 then "03"
+	   when month(tf.fecha_doc) = 4 then "04"
+	   when month(tf.fecha_doc) = 5 then "05"
+	   when month(tf.fecha_doc) = 6 then "06"
+	   when month(tf.fecha_doc) = 7 then "07"
+	   when month(tf.fecha_doc) = 8 then "08"
+	   when month(tf.fecha_doc) = 9 then "09"
+	   when month(tf.fecha_doc) = 10 then "10"
+	   when month(tf.fecha_doc) = 11 then "11"
+	   when month(tf.fecha_doc) = 12 then "12"
+	end as mes,
+	year(tf.fecha_doc)
+from tventa tf
+inner join tcliente cli on cli.id_cliente = tf.id_cliente
+inner join tservicio ts on ts.id_fac = tf.id_doc
+where tf.id_doc = $P{id_doc}]]>
+	</queryString>
+	<field name="fecha_doc" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="no_doc" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="txt_nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="txt_nit" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="txt_telefono" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="txt_direccion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total_factura" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cantidad" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="precio" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sub_total" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="txt_desc_serv" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total_letras" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dia" class="java.lang.String"/>
+	<field name="mes" class="java.lang.String"/>
+	<field name="year(tf.fecha_doc)" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="36" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="101" splitType="Stretch">
+			<textField>
+				<reportElement x="83" y="45" width="392" height="20" uuid="75cb5816-c772-403d-9b2e-800eb7fd4988"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{txt_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="483" y="45" width="77" height="20" uuid="35539901-4183-46b9-ad20-dfc4bf3bfdfd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{txt_nit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="94" y="65" width="449" height="20" uuid="cc19d398-aed1-48c4-94ce-d229d04c79c4"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{txt_direccion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="405" y="25" width="37" height="20" uuid="b0bcd53e-778b-4b69-8649-cc8a4b2dff2e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="511" y="25" width="39" height="20" uuid="cf4da9ff-5a55-48b0-8880-7268a34db76e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{year(tf.fecha_doc)}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="458" y="25" width="41" height="20" uuid="aea8b4ce-e586-4b70-ad1f-b27c9b8a47b2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mes}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="23" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="122" y="5" width="335" height="20" uuid="55adcdfc-2ce8-499e-86d2-44af4d938395"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{txt_desc_serv}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="0" y="5" width="94" height="20" uuid="7fc0725a-b981-47e6-bda1-367075185940"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="470" y="5" width="77" height="20" uuid="6316b6b3-1643-4135-a5d4-df02febab37d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sub_total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="115">
+			<textField pattern="###0.00">
+				<reportElement x="445" y="90" width="108" height="20" uuid="6774cc8e-8033-4f58-8c18-68d2b362e22b"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total_factura}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="60" y="93" width="307" height="20" uuid="a6ff3fb2-ad15-46f3-adde-31e47e8aaa9b"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total_letras}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

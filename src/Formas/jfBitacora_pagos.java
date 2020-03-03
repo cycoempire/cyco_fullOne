@@ -1,0 +1,344 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Formas;
+
+import Animacion.Fade;
+import clases_varias.conectar;
+import clases_varias.user_logged;
+import clases_varias.varias_funciones;
+import java.awt.Color;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+/**
+ *
+ * @author wwwki
+ */
+public class jfBitacora_pagos extends javax.swing.JFrame {
+    public static Integer idFactura;
+    conectar cc = new conectar();
+    ArrayList<user_logged> user_memory = new ArrayList<user_logged>();
+    public int idUsu;
+
+    /**
+     * Creates new form jfBitacora_pagos
+     */
+    public jfBitacora_pagos() {
+        initComponents();
+        this.setIconImage(new ImageIcon(getClass().getResource("/Iconos/CyCo64.png")).getImage());
+        this.setLocationRelativeTo(null);
+        //La tabla no se autoresizable
+        jtbBitacora.setAutoResizeMode(jtbBitacora.AUTO_RESIZE_OFF); 
+        
+    }
+    
+    
+    void mostrar_bitacora(){
+        String ssql;
+        try {
+            Connection cn = cc.conexion();
+            DefaultTableModel bit = new DefaultTableModel();
+            bit.addColumn("MONTO ABONADO");
+            bit.addColumn("FECHA ABONO");
+            bit.addColumn("TIPO PAGO");
+            bit.addColumn("NO. SERIE");
+            bit.addColumn("NO. DOC.");
+            jtbBitacora.setModel(bit);
+            
+            //monto
+            jtbBitacora.getColumnModel().getColumn(0).setMaxWidth(150);
+            jtbBitacora.getColumnModel().getColumn(0).setMinWidth(150);
+            jtbBitacora.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(150);
+            jtbBitacora.getTableHeader().getColumnModel().getColumn(0).setMinWidth(150);
+        
+            //fecha
+            jtbBitacora.getColumnModel().getColumn(1).setMaxWidth(150);
+            jtbBitacora.getColumnModel().getColumn(1).setMinWidth(150);
+            jtbBitacora.getTableHeader().getColumnModel().getColumn(1).setMaxWidth(150);
+            jtbBitacora.getTableHeader().getColumnModel().getColumn(1).setMinWidth(150);
+            
+            //tipo pago
+            jtbBitacora.getColumnModel().getColumn(2).setMaxWidth(145);
+            jtbBitacora.getColumnModel().getColumn(2).setMinWidth(145);
+            jtbBitacora.getTableHeader().getColumnModel().getColumn(2).setMaxWidth(145);
+            jtbBitacora.getTableHeader().getColumnModel().getColumn(2).setMinWidth(145);
+            
+            //SERIE RECIBO
+            jtbBitacora.getColumnModel().getColumn(3).setMaxWidth(135);
+            jtbBitacora.getColumnModel().getColumn(3).setMinWidth(135);
+            jtbBitacora.getTableHeader().getColumnModel().getColumn(3).setMaxWidth(135);
+            jtbBitacora.getTableHeader().getColumnModel().getColumn(3).setMinWidth(135);
+            
+            //comprobante
+            jtbBitacora.getColumnModel().getColumn(4).setMaxWidth(100);
+            jtbBitacora.getColumnModel().getColumn(4).setMinWidth(100);
+            jtbBitacora.getTableHeader().getColumnModel().getColumn(4).setMaxWidth(100);
+            jtbBitacora.getTableHeader().getColumnModel().getColumn(4).setMinWidth(100);
+            
+            varias_funciones vr = new varias_funciones();
+            
+            ssql = "";
+            ssql = ssql + " select tb.monto_abono, tb.created_at,ttp.txt_tipo_pago, trc.txt_no_serie_recibo,tb.txt_no_comprobante from tbitacora_pagos_cuentas tb";
+            ssql = ssql + " inner join ttipo_pago  ttp on ttp.id_tipo_pago  = tb.id_tipo_pago ";
+            ssql = ssql + " inner join tserie_recibo trc on trc.id_serie_recibo = tb.no_serie_recibo";
+            ssql = ssql + " where id_factura = "+idFactura;
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(ssql);
+            String datos[] = new String[5];
+            while(rs.next()){
+                datos[0] = rs.getString(1);
+                datos[1] = vr.MostrarformatoFecha(rs.getString(2));
+                datos[2] = rs.getString(3);
+                datos[3] = rs.getString(4);
+                datos[4] = rs.getString(5);
+                bit.addRow(datos);            
+            }
+            jtbBitacora.setModel(bit);    
+            rs.close();
+            st.close();
+            cn.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar bitacora en: "+e, "CyCo", JOptionPane.INFORMATION_MESSAGE);
+        }            
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jSeparator3 = new javax.swing.JSeparator();
+        lblMinimizar = new javax.swing.JLabel();
+        lblSalir = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtbBitacora = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false; //Disallow the editing of any cell
+            }
+        };
+        jSeparator4 = new javax.swing.JSeparator();
+        jSeparator5 = new javax.swing.JSeparator();
+        lblSerie = new javax.swing.JLabel();
+        lblTipoDoc = new javax.swing.JLabel();
+        lblFecha = new javax.swing.JLabel();
+        lblNo1 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(41, 42, 44));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Corbel", 0, 36)); // NOI18N
+        jLabel1.setForeground(java.awt.Color.gray);
+        jLabel1.setText("Bitacora de Pagos");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, 40));
+        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 700, 10));
+
+        lblMinimizar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblMinimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/minimizar32.png"))); // NOI18N
+        lblMinimizar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                lblMinimizarMouseMoved(evt);
+            }
+        });
+        lblMinimizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblMinimizarMouseExited(evt);
+            }
+        });
+        jPanel1.add(lblMinimizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 10, 50, 40));
+
+        lblSalir.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/cerrar32.png"))); // NOI18N
+        lblSalir.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                lblSalirMouseMoved(evt);
+            }
+        });
+        lblSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblSalirMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblSalirMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblSalirMouseExited(evt);
+            }
+        });
+        jPanel1.add(lblSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 10, 50, 40));
+
+        jLabel5.setFont(new java.awt.Font("Corbel", 0, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(232, 251, 244));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel5.setText("Serie:");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 40, -1));
+
+        jLabel7.setFont(new java.awt.Font("Corbel", 0, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(232, 251, 244));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel7.setText("Tipo Doc.:");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, -1, -1));
+
+        jLabel6.setFont(new java.awt.Font("Corbel", 0, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(232, 251, 244));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel6.setText("Fecha:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 70, -1, -1));
+
+        jtbBitacora.setFont(new java.awt.Font("Ebrima", 0, 18)); // NOI18N
+        jtbBitacora.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jtbBitacora.setRowHeight(20);
+        jScrollPane1.setViewportView(jtbBitacora);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 690, 220));
+        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 690, 10));
+        jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 690, 10));
+
+        lblSerie.setFont(new java.awt.Font("Ebrima", 1, 16)); // NOI18N
+        lblSerie.setForeground(java.awt.Color.cyan);
+        jPanel1.add(lblSerie, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 100, 30));
+
+        lblTipoDoc.setFont(new java.awt.Font("Ebrima", 1, 16)); // NOI18N
+        lblTipoDoc.setForeground(java.awt.Color.cyan);
+        jPanel1.add(lblTipoDoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, 90, 30));
+
+        lblFecha.setFont(new java.awt.Font("Ebrima", 1, 16)); // NOI18N
+        lblFecha.setForeground(java.awt.Color.cyan);
+        jPanel1.add(lblFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 60, 90, 30));
+
+        lblNo1.setFont(new java.awt.Font("Ebrima", 1, 16)); // NOI18N
+        lblNo1.setForeground(java.awt.Color.cyan);
+        jPanel1.add(lblNo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 60, 80, 30));
+
+        jLabel8.setFont(new java.awt.Font("Corbel", 0, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(232, 251, 244));
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel8.setText("No. Doc.:");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 70, 70, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 350));
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void lblMinimizarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMinimizarMouseMoved
+        lblMinimizar.setBorder(javax.swing.BorderFactory.createLineBorder(Color.CYAN));
+    }//GEN-LAST:event_lblMinimizarMouseMoved
+
+    private void lblMinimizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMinimizarMouseExited
+        lblMinimizar.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(41,42,44)));
+    }//GEN-LAST:event_lblMinimizarMouseExited
+
+    private void lblSalirMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSalirMouseMoved
+        lblSalir.setBorder(javax.swing.BorderFactory.createLineBorder(Color.RED));
+    }//GEN-LAST:event_lblSalirMouseMoved
+
+    private void lblSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSalirMouseClicked
+//        int dialog = JOptionPane.YES_NO_OPTION;
+//        int result = JOptionPane.showConfirmDialog(null, "¿Desea salir?","Salir",dialog);
+//        if(result == 0){
+            
+            //Fade.JFrameFadeIn(0f, 1f, 0.2f, 50, this);
+            //Fade.JFrameFadeOut(1f, 0f, 0.1f, 50, this,Fade.DISPOSE);
+            //jfCuentas_cobrar mp = new jfCuentas_cobrar();
+            this.dispose();
+            //mp.setVisible(true);
+            //Fade.JFrameFadeIn(0f, 1f, 0.2f, 50, mp);
+
+//        }
+    }//GEN-LAST:event_lblSalirMouseClicked
+
+    private void lblSalirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSalirMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblSalirMouseEntered
+
+    private void lblSalirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSalirMouseExited
+        lblSalir.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(41,42,44)));
+    }//GEN-LAST:event_lblSalirMouseExited
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(jfBitacora_pagos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(jfBitacora_pagos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(jfBitacora_pagos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(jfBitacora_pagos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new jfBitacora_pagos().setVisible(true);
+            }
+        });
+    }
+    
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JTable jtbBitacora;
+    public static javax.swing.JLabel lblFecha;
+    private javax.swing.JLabel lblMinimizar;
+    public static javax.swing.JLabel lblNo1;
+    private javax.swing.JLabel lblSalir;
+    public static javax.swing.JLabel lblSerie;
+    public static javax.swing.JLabel lblTipoDoc;
+    // End of variables declaration//GEN-END:variables
+}

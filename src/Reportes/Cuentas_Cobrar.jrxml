@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6ac7699d-0468-432f-82f9-cd3a99a04e7a">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_impresion" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select * from timpresio_cuentas_cobrar
+where id_timpresion_cuenta = $P{id_impresion}]]>
+	</queryString>
+	<field name="id_timpresion_cuenta" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_factura" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha_factura" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="txt_serie_fac" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="txt_no_fac" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="txt_cliente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total_factura" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="txt_tipo_fac" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dias_credito" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dias_restantes" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="created_at" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="total_factura_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_factura}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="20" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="1" y="0" width="100" height="20" uuid="9f5a8410-d39b-47eb-8515-0d4f6093c1b3"/>
+				<textElement textAlignment="Center">
+					<font fontName="Corbel" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{created_at}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="68" splitType="Stretch">
+			<staticText>
+				<reportElement x="3" y="0" width="553" height="44" uuid="6d28a61e-ab1f-4684-a894-556fa33e27a9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Corbel" size="29" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Cuentas por Cobrar]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="67" width="555" height="1" uuid="2a2e9fc7-76d2-4cbf-99ce-9c4f07f46757"/>
+			</line>
+			<staticText>
+				<reportElement x="3" y="44" width="553" height="22" uuid="8af6f653-1c96-49ef-a0e5-d0c8b3378eb1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Corbel" size="17" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Servicio de Alimentos S.A.]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="0" width="61" height="15" uuid="1898aa7b-6138-4eee-929c-c73e2e6f8722"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Corbel" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="63" y="0" width="50" height="15" uuid="58b00f0f-ae69-480b-aef3-da3926975ec2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Corbel" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Serie]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="311" y="0" width="64" height="15" uuid="835db214-3b8e-4e8a-a536-4ab6b6577f2b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Corbel" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="376" y="0" width="63" height="15" uuid="4d0903d6-f341-4810-923d-70946fbf4bd0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Corbel" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Tipo Factura]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="171" y="0" width="139" height="16" uuid="f29ce57d-67b2-4ab7-bb6c-b8ab3db7d52d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Corbel" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="439" y="0" width="55" height="15" uuid="5df33128-eb85-406d-9424-d0738421aecf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Corbel" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[D. Credito]]></text>
+			</staticText>
+			<line>
+				<reportElement x="62" y="0" width="1" height="15" uuid="62be2a11-9d4f-4b13-ada3-77906694d9bf"/>
+			</line>
+			<staticText>
+				<reportElement x="114" y="0" width="56" height="15" uuid="5053c3ef-4bb4-44e6-95fb-e7e9b3285e80"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Corbel" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[No. Factura]]></text>
+			</staticText>
+			<line>
+				<reportElement x="113" y="0" width="1" height="15" uuid="6981cc6e-94ad-4d45-a1f2-3c73a7a5abe0"/>
+			</line>
+			<line>
+				<reportElement x="170" y="0" width="1" height="15" uuid="e1c27467-2f9c-46e8-8a32-a1723df47091"/>
+			</line>
+			<line>
+				<reportElement x="310" y="0" width="1" height="15" uuid="2e99f769-df98-4de9-a0fd-a7b1759c0f30"/>
+			</line>
+			<staticText>
+				<reportElement x="495" y="0" width="59" height="15" uuid="afe2034e-e1ac-4816-9ffb-43881515f7ec"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Corbel" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[D. Restantes]]></text>
+			</staticText>
+			<line>
+				<reportElement x="554" y="0" width="1" height="15" uuid="45505300-fdda-4d41-ba9f-7439715e08ff"/>
+			</line>
+			<line>
+				<reportElement x="494" y="0" width="1" height="15" uuid="4aa0c718-9040-4523-ac3a-1fec3fc4938f"/>
+			</line>
+			<line>
+				<reportElement x="439" y="0" width="1" height="15" uuid="077088f7-22dc-4ebd-888e-678829c876af"/>
+			</line>
+			<line>
+				<reportElement x="375" y="0" width="1" height="15" uuid="8524f80c-6f7e-4da9-9d15-0935e3d65dd6"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="1" height="15" uuid="f04c60b6-d8b8-4199-81d6-8059540bfd78"/>
+			</line>
+			<line>
+				<reportElement x="0" y="15" width="555" height="1" uuid="e9d3e988-fc2a-4173-8911-71cbea22f518"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="1" y="0" width="61" height="20" uuid="918a33c6-ee6e-4827-9673-58c975380366"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Corbel" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha_factura}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="63" y="0" width="50" height="20" uuid="c52e8f0b-eb43-4334-8857-f17543cc71b8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Corbel" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{txt_serie_fac}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="114" y="0" width="56" height="20" uuid="bc8062a7-9081-4020-9f7a-8731de023d45"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Corbel" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{txt_no_fac}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="311" y="0" width="64" height="20" uuid="472b6ac9-f88d-4878-9322-f90cbe52c990"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Corbel" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total_factura}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="171" y="0" width="139" height="20" uuid="9377cf5d-1b87-4ed4-9d0b-9ca423892b07"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Corbel" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{txt_cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="0" width="54" height="20" uuid="4ab6a502-f5b9-4f63-8451-8394e8e5b501"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Corbel" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dias_credito}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="62" y="0" width="1" height="20" uuid="f63c6e79-3009-4159-b62b-9aea1b2c7778"/>
+			</line>
+			<line>
+				<reportElement x="113" y="0" width="1" height="20" uuid="f180f3d6-23db-4089-a09d-e673c70d2be7"/>
+			</line>
+			<line>
+				<reportElement x="170" y="0" width="1" height="20" uuid="3b3a6f6b-5036-44af-902c-419f88ad0b54"/>
+			</line>
+			<line>
+				<reportElement x="310" y="0" width="1" height="20" uuid="a5012d0b-48e9-43cc-bcf2-3993f32a1a49"/>
+			</line>
+			<textField>
+				<reportElement x="495" y="0" width="59" height="20" uuid="5d4d0b9d-0154-43f2-a6e0-9eceb6de05cc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Corbel" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dias_restantes}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="554" y="0" width="1" height="20" uuid="c3969a65-bd66-478f-a9b5-912b1c2e0c3a"/>
+			</line>
+			<line>
+				<reportElement x="494" y="0" width="1" height="20" uuid="e4b956db-6672-4259-9d81-01b6b98433d9"/>
+			</line>
+			<line>
+				<reportElement x="439" y="0" width="1" height="20" uuid="0b87574a-a92e-4b95-8c9c-1e8ba2fe9193"/>
+			</line>
+			<textField>
+				<reportElement x="376" y="0" width="63" height="20" uuid="f876daa4-ff50-4a22-bbc9-558d45d4482a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Corbel" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{txt_tipo_fac}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="375" y="0" width="1" height="20" uuid="653a166c-3c95-40bb-b33f-233daab3f3d4"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="1" height="20" uuid="8211d3d8-dc0f-4e1f-bb83-692363258ce0"/>
+			</line>
+		</band>
+	</detail>
+	<summary>
+		<band height="23" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="6b0e9d32-59e1-4f1f-ad40-0c272156cfae"/>
+			</line>
+			<textField>
+				<reportElement x="440" y="1" width="114" height="20" uuid="3a93a044-1919-4c9b-9384-35b123d0a38d"/>
+				<textElement textAlignment="Right">
+					<font fontName="Corbel" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total_factura_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="261" y="1" width="178" height="20" uuid="81a70d00-6b28-4d9f-80ab-d6b21fa88455"/>
+				<textElement textAlignment="Right">
+					<font fontName="Corbel" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total por Cuentas por Cobrar:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
